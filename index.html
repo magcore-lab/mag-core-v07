@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAG-CORE // v0.8 WP CONNECTED</title>
+<style>
+body{background:#0a0a0a;color:#fff;font-family:monospace;margin:0;padding:0}
+header{padding:18px;border-bottom:2px solid #ffaa00;display:flex;justify-content:space-between;align-items:center}
+.badge{border:1px solid #ffaa00;color:#ffaa00;padding:6px 12px;border-radius:20px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:20px}
+.card{border:1px solid #222;padding:16px;border-radius:12px;background:#111}
+.card h3{margin:0 0 8px;color:#ffaa00}
+a{color:#ffaa00;text-decoration:none}
+#status{padding:12px 20px;color:#aaa}
+</style>
+</head>
+<body>
+<header>
+<div><b>MAG-CORE // v0.8 WP CONNECTED</b><div style="font-size:11px;color:#aaa">WP SOURCE: magmaatmultivers.wordpress.com</div></div>
+<div class="badge">● LIVE FROM WORDPRESS</div>
+</header>
+<div id="status">Chargement...</div>
+<div id="grid" class="grid"></div>
+<script>
+const WP_API="https://public-api.wordpress.com/rest/v1.1/sites/magmaatmultivers.wordpress.com/posts/?number=20";
+async function load(){
+ try{
+  const r=await fetch(WP_API); const j=await r.json();
+  const posts=j.posts||[];
+  document.getElementById('status').innerHTML=`${posts.length} articles`;
+  document.getElementById('grid').innerHTML=posts.map(p=>`<div class="card"><h3>${p.title}</h3><div style="font-size:12px;color:#aaa">${new Date(p.date).toLocaleDateString()}</div><div style="font-size:13px;color:#ddd">${(p.excerpt||'').replace(/<[^>]*>/g,'').slice(0,120)}...</div><div style="margin-top:10px"><a href="${p.URL}" target="_blank">Lire →</a></div></div>`).join('');
+ }catch(e){document.getElementById('status').innerHTML='Erreur: '+e;}
+}
+load();
+</script>
+</body>
+</html>
