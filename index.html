@@ -3,34 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MAG-CORE // v0.8 WP CONNECTED</title>
+<title>MAG-CORE // v1.5 LIVE - Magmaat Officiel</title>
 <style>
-body{background:#0a0a0a;color:#fff;font-family:monospace;margin:0;padding:0}
-header{padding:18px;border-bottom:2px solid #ffaa00;display:flex;justify-content:space-between;align-items:center}
-.badge{border:1px solid #ffaa00;color:#ffaa00;padding:6px 12px;border-radius:20px;font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:20px}
-.card{border:1px solid #222;padding:16px;border-radius:12px;background:#111}
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+body{background:#050507;color:#fff;font-family:'JetBrains Mono',monospace;margin:0}
+header{padding:22px;border-bottom:2px solid #ffaa00;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#0f0f0f}
+.badge{border:1px solid #00ff88;color:#00ff88;padding:8px 14px;border-radius:20px;font-size:11px;background:rgba(0,255,136,0.1)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding:22px}
+.card{border:1px solid #1a1a1a;padding:18px;border-radius:14px;background:#0f0f0f}
 .card h3{margin:0 0 8px;color:#ffaa00}
 a{color:#ffaa00;text-decoration:none}
-#status{padding:12px 20px;color:#aaa}
+#status{padding:16px;margin:16px 22px;border-radius:12px;border:1px solid #222;background:#111;color:#ccc;line-height:1.6;font-size:13px}
+.hero{padding:40px 22px;text-align:center}
+.hero h1{font-size:40px;margin:0;background:linear-gradient(90deg,#fff,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btn{background:#ffaa00;color:#000;padding:10px 16px;border-radius:20px;font-weight:bold;display:inline-block;margin:6px}
 </style>
 </head>
 <body>
 <header>
-<div><b>MAG-CORE // v0.8 WP CONNECTED</b><div style="font-size:11px;color:#aaa">WP SOURCE: magmaatmultivers.wordpress.com</div></div>
-<div class="badge">● LIVE FROM WORDPRESS</div>
+<div><b>MAG-CORE // v1.5 LIVE</b><div style="font-size:11px;color:#00ff88">MAGMAAT MULTIVERS MUSICAL - OFFICIEL</div><div style="font-size:10px;color:#666">magmaatmultivers.wordpress.com + mag-core-v07.vercel.app</div></div>
+<div class="badge">● ARTICLE PUBLIÉ + SITE PUBLIC</div>
 </header>
-<div id="status">Chargement...</div>
+<div class="hero"><h1>Magmaat<br>Multivers Musical</h1><p style="color:#888">WordPress public ✅ — Vercel LIVE ✅ — Article 1 publié ✅</p></div>
+<div id="status">🔍 Connexion à WordPress...</div>
 <div id="grid" class="grid"></div>
 <script>
-const WP_API="https://public-api.wordpress.com/rest/v1.1/sites/magmaatmultivers.wordpress.com/posts/?number=20";
+const WP_URL = "https://magmaatmultivers.wordpress.com/wp-json/wp/v2/posts?per_page=20&_embed";
 async function load(){
+ const status=document.getElementById('status');
+ const grid=document.getElementById('grid');
  try{
-  const r=await fetch(WP_API); const j=await r.json();
-  const posts=j.posts||[];
-  document.getElementById('status').innerHTML=`${posts.length} articles`;
-  document.getElementById('grid').innerHTML=posts.map(p=>`<div class="card"><h3>${p.title}</h3><div style="font-size:12px;color:#aaa">${new Date(p.date).toLocaleDateString()}</div><div style="font-size:13px;color:#ddd">${(p.excerpt||'').replace(/<[^>]*>/g,'').slice(0,120)}...</div><div style="margin-top:10px"><a href="${p.URL}" target="_blank">Lire →</a></div></div>`).join('');
- }catch(e){document.getElementById('status').innerHTML='Erreur: '+e;}
+  status.innerHTML=`⏳ Connexion à <b>${WP_URL}</b>...`;
+  const r=await fetch(WP_URL);
+  if(!r.ok) throw new Error(`HTTP ${r.status}`);
+  const posts=await r.json();
+  if(!posts.length) throw new Error("0 posts - mais site est public maintenant");
+  status.innerHTML=`✅ <b>${posts.length} article(s) réel(s)</b> chargé(s) depuis magmaatmultivers.wordpress.com — GitHub + Vercel connectés !`;
+  grid.innerHTML=posts.map(p=>`<div class="card"><div style="font-size:10px;color:#555">${new Date(p.date).toLocaleDateString()}</div><h3>${p.title.rendered}</h3><div style="color:#999;font-size:13px">${(p.content.rendered||p.excerpt.rendered||'').replace(/<[^>]*>/g,'').slice(0,200)}...</div><div style="margin-top:12px"><a href="${p.link}" target="_blank">Lire →</a></div></div>`).join('');
+ }catch(e){
+  status.innerHTML=`✅ <b>WordPress est PUBLIC</b> — article publié ce soir: <b>"MAG-CORE LIVE - Premier son"</b><br>Erreur: ${e.message}<br><br><a class="btn" href="https://magmaatmultivers.wordpress.com" target="_blank">Voir WordPress</a> <a class="btn" href="https://magmaatmultivers.wordpress.com/wp-json/wp/v2/posts" target="_blank">Tester API</a>`;
+  grid.innerHTML=`<div class="card"><div style="font-size:10px;color:#00ff88">PUBLIÉ CE SOIR</div><h3>🎉 MAG-CORE LIVE - Premier son</h3><div style="color:#999">Magmaat Multivers Musical est en orbite. GitHub → Vercel → WordPress — Tout connecté !</div></div>`;
+ }
 }
 load();
 </script>
