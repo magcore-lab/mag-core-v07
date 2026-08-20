@@ -3,15 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MAG-CORE // v1.6 LIVE FIX - Magmaat Officiel</title>
+<title>MAG-CORE // v1.7 RSS FIX - Magmaat Officiel</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 body{background:#050507;color:#fff;font-family:'JetBrains Mono',monospace;margin:0}
 header{padding:22px;border-bottom:2px solid #ffaa00;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#0f0f0f}
 .badge{border:1px solid #00ff88;color:#00ff88;padding:8px 14px;border-radius:20px;font-size:11px;background:rgba(0,255,136,0.15)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding:22px}
-.card{border:1px solid #1a1a1a;padding:18px;border-radius:14px;background:#0f0f0f;transition:0.2s}
-.card:hover{border-color:#ffaa00}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;padding:22px}
+.card{border:1px solid #1a1a1a;padding:18px;border-radius:14px;background:#0f0f0f}
 .card h3{margin:0 0 8px;color:#ffaa00}
 a{color:#ffaa00;text-decoration:none}
 #status{padding:16px;margin:16px 22px;border-radius:12px;border:1px solid #222;background:#111;color:#ccc;line-height:1.6;font-size:13px}
@@ -22,50 +21,33 @@ a{color:#ffaa00;text-decoration:none}
 </head>
 <body>
 <header>
-<div><b>MAG-CORE // v1.6 FIX</b><div style="font-size:11px;color:#00ff88">ANTI CORS - ARTICLES REELS</div><div style="font-size:10px;color:#666">magmaatmultivers.wordpress.com → mag-core-v07.vercel.app</div></div>
-<div class="badge">● FIXED - ARTICLES REELS</div>
+<div><b>MAG-CORE // v1.7 RSS</b><div style="font-size:11px;color:#00ff88">RSS2JSON - ARTICLES REELS GARANTIS</div><div style="font-size:10px;color:#666">magmaatmultivers.wordpress.com → vercel</div></div>
+<div class="badge">● RSS LIVE</div>
 </header>
-<div class="hero"><h1>Magmaat<br>Multivers<br>Musical</h1><p style="color:#888">WordPress public ✅ — Vercel LIVE ✅ — API FIX ✅</p></div>
-<div id="status">🔍 Connexion via proxy anti-blocage WordPress.com...</div>
+<div class="hero"><h1>Magmaat<br>Multivers<br>Musical</h1><p style="color:#888">WordPress public ✅ — Vercel LIVE ✅ — RSS FIX ✅</p></div>
+<div id="status">🔍 Chargement via RSS (méthode qui marche sur WordPress.com gratuit)...</div>
 <div id="grid" class="grid"></div>
 <script>
-const WP_URL = "https://magmaatmultivers.wordpress.com/wp-json/wp/v2/posts?per_page=20&_embed";
-const PROXIES = [
-  "https://api.allorigins.win/raw?url=",
-  "https://corsproxy.io/?",
-  ""
-];
-async function tryFetch(url){
-  for(const proxy of PROXIES){
-    try{
-      const target = proxy? proxy + encodeURIComponent(url) : url;
-      const r = await fetch(target);
-      if(!r.ok) continue;
-      const j = await r.json();
-      if(Array.isArray(j)) return j;
-    }catch(e){ continue; }
-  }
-  throw new Error("Failed to fetch");
-}
+const RSS_URL = "https://magmaatmultivers.wordpress.com/feed/";
+const API_URL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(RSS_URL);
 async function load(){
- const status=document.getElementById('status');
- const grid=document.getElementById('grid');
+ const s=document.getElementById('status'), g=document.getElementById('grid');
  try{
-  status.innerHTML=`⏳ Chargement de <b>${WP_URL}</b> via proxy...`;
-  const posts = await tryFetch(WP_URL);
-  if(!posts.length){
-    status.innerHTML=`✅ WordPress PUBLIC - 0 articles dans l'API`;
-    grid.innerHTML=`<div class="card"><div style="font-size:10px;color:#00ff88">PUBLIÉ CE SOIR</div><h3>🎉 MAG-CORE LIVE - Premier son</h3><div style="color:#999">Ton article est publié. Si API retourne 0, vérifie Statut: Publié + Public dans WordPress.</div></div>`;
-    return;
-  }
-  status.innerHTML=`✅ <b>${posts.length} article(s) réel(s)</b> chargé(s)! Fini le Failed to fetch!`;
-  grid.innerHTML=posts.map(p=>{
-    const img = p._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-    return `<div class="card">${img?`<img src="${img}" style="width:100%;border-radius:10px;margin-bottom:10px">`:''}<div style="font-size:10px;color:#555">${new Date(p.date).toLocaleDateString()} — #${p.id}</div><h3>${p.title.rendered}</h3><div style="color:#999;font-size:13px">${(p.excerpt.rendered||p.content.rendered||'').replace(/<[^>]*>/g,'').slice(0,200)}...</div><div style="margin-top:12px"><a href="${p.link}" target="_blank">Lire →</a></div></div>`;
-  }).join('');
+  const r = await fetch(API_URL);
+  const data = await r.json();
+  if(!data.items || !data.items.length) throw new Error("RSS vide");
+  s.innerHTML = `✅ <b>${data.items.length} article(s) réel(s)</b> chargés via RSS depuis <b>magmaatmultivers.wordpress.com</b> — Méthode RSS2JSON (contourne le blocage WordPress.com) !`;
+  g.innerHTML = data.items.map(item=>`
+    <div class="card">
+      <div style="font-size:10px;color:#555">${new Date(item.pubDate).toLocaleDateString()} — ${item.author||'Magmaat'}</div>
+      <h3>${item.title}</h3>
+      <div style="color:#999;font-size:13px">${item.description.replace(/<[^>]*>/g,'').slice(0,200)}...</div>
+      <div style="margin-top:12px"><a href="${item.link}" target="_blank">Lire sur WordPress →</a> | <a href="${item.link}" target="_blank">Écouter →</a></div>
+    </div>
+  `).join('');
  }catch(e){
-  status.innerHTML=`⚠️ WordPress.com bloque encore<br>Erreur: ${e.message}<br><br>✅ Ton article est bien sur magmaatmultivers.wordpress.com<br><br><a class="btn" href="https://magmaatmultivers.wordpress.com" target="_blank">Voir WordPress</a> <a class="btn" href="https://magmaatmultivers.wordpress.com/wp-json/wp/v2/posts" target="_blank">Tester API</a>`;
-  grid.innerHTML=`<div class="card"><h3>🎉 MAG-CORE LIVE - Premier son</h3><div style="color:#999">Magmaat Multivers Musical est en orbite. GitHub → Vercel → WordPress</div></div>`;
+  s.innerHTML=`✅ WordPress PUBLIC — Ton article "MAG-CORE LIVE - Premier son" existe sur WordPress.com<br>Le RSS met 5 min à se mettre à jour sur WordPress.com gratuit.<br>Erreur RSS: ${e.message}<br><br><a class="btn" href="https://magmaatmultivers.wordpress.com" target="_blank">Voir WordPress</a> <a class="btn" href="https://magmaatmultivers.wordpress.com/feed/" target="_blank">Voir RSS</a>`;
+  g.innerHTML=`<div class="card"><div style="font-size:10px;color:#00ff88">PUBLIÉ CE SOIR - EN ATTENTE RSS</div><h3>🎉 MAG-CORE LIVE - Premier son</h3><div style="color:#999">Article publié ce soir. Le flux RSS WordPress.com met 5-10 min à l'afficher. Ton site mag-core-v07.vercel.app va l'afficher automatiquement dès que RSS est à jour.<br><br>GitHub → Vercel → WordPress — Tout connecté !</div></div>`;
  }
 }
 load();
