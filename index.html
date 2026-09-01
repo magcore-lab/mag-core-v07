@@ -1,19 +1,8 @@
-// MAG CORE - Interpolation Tactique • MIT • v07
-export const lerp = (a: number, b: number, t: number) => a + (b - a) * t
-
-export const damp = (current: number, target: number, lambda = 0.08, dt = 1) =>
-  lerp(current, target, 1 - Math.exp(-lambda * dt))
-
-export const edgeInterpolate = (from: number, to: number, t: number) =>
-  from + (to - from) * (1 - Math.pow(2, -10 * t))
-
-export const smoothStep = (t: number) => t * t * (3 - 2 * t)
-
-export const map = (v: number, inMin: number, inMax: number, outMin: number, outMax: number) =>
-  outMin + ((v - inMin) * (outMax - outMin)) / (inMax - inMin)
-
-export const spring = (current: number, target: number, vel: number, stiffness = 0.15, damping = 0.8) => {
-  const f = (target - current) * stiffness
-  const newVel = (vel + f) * damping
-  return { value: current + newVel, velocity: newVel }
-}
+<!doctype html><html lang=fr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>MAG CORE V07</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}:root{--red:#FF1A1A;--glow:rgba(255,26,26,.4)}.header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;background:rgba(0,0,0,.8);backdrop-filter:blur(20px);border-bottom:1px solid #1a1a1a}.logo{font-weight:900;font-size:14px;letter-spacing:2px;display:flex;align-items:center;gap:10px}.dot{width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 12px var(--red);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.2)}}.badge{border:1px solid #222;padding:6px 12px;border-radius:999px;font-size:10px;letter-spacing:1px;color:#666}.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative}.hero:before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,var(--glow) 0%, transparent 70%);filter:blur(60px);pointer-events:none;opacity:.4}h1{font-size:clamp(42px,8vw,84px);font-weight:900;line-height:.88;letter-spacing:-3px;max-width:800px;position:relative;z-index:1}h1 span{color:var(--red)}.sub{margin-top:24px;color:#777;font-size:clamp(14px,2vw,18px);max-width:600px}.cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}.btn{padding:14px 28px;border-radius:999px;font-weight:800;font-size:14px;text-decoration:none;display:inline-flex;gap:8px;transition:.2s}.btn-w{background:#fff;color:#000}.btn-r{background:var(--red);color:#fff}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:1100px;margin:0 auto;padding:40px 24px}.card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:20px;padding:28px;text-align:left;transition:.3s}.card:hover{border-color:#333;transform:translateY(-4px)}.card-icon{width:40px;height:40px;border-radius:12px;background:#151515;display:flex;align-items:center;justify-content:center;margin-bottom:16px}.card h3{font-size:16px;font-weight:800;margin-bottom:8px}.card p{font-size:13px;color:#666;line-height:1.5}.core{max-width:1100px;margin:40px auto;padding:0 24px 100px}.code-wrap{background:#080808;border:1px solid #1e1e1e;border-radius:16px;overflow:hidden}pre{padding:24px;margin:0;overflow:auto;font-family:monospace;font-size:12.5px;line-height:1.8;color:#aaa;white-space:pre-wrap}pre b{color:#fff}.footer{padding:40px 24px;text-align:center;border-top:1px solid #111;color:#333;font-size:11px;letter-spacing:2px}</style></head><body><div class="header"><div class="logo"><div class="dot"></div>MAG CORE V07</div><div class="badge">MIT • TACTICAL ENGINE</div></div><div class="hero"><h1>Le coeur tactique<br><span>de vos systèmes</span></h1><div class="sub">MAG CORE — AI, music, cinematic, intelligent systems. Un moteur d'interpolation qui fait bouger vos mondes comme un film.</div><div class="cta"><a class="btn btn-w" href="https://github.com/magcore-lab/mag-core-v07">↗ GitHub</a><a class="btn btn-r" href="#core">◉ Core Engine</a></div></div><div class="grid"><div class="card"><div class="card-icon">◐</div><h3>AI SYSTEMS</h3><p>Damp intelligent pour suivre, prédire et lisser les données temps réel sans à-coup.</p></div><div class="card"><div class="card-icon">♫</div><h3>MUSIC ENGINE</h3><p>EdgeInterpolate pour des transitions de beat qui punchent au début et flottent à la fin.</p></div><div class="card"><div class="card-icon">◎</div><h3>CINEMATIC MOTION</h3><p>SmoothStep et Spring pour des caméras dignes d'Hollywood, 100% code.</p></div></div><div class="core" id="core"><div class="code-wrap"><pre><b>// MAG CORE - Interpolation Tactique • MIT • v07</b>
+export const lerp = (a,b,t) => a + (b-a)*t
+export const damp = (c,t,l=0.08,dt=1) => lerp(c,t,1-Math.exp(-l*dt))
+export const edgeInterpolate = (f,to,t) => f+(to-f)*(1-Math.pow(2,-10*t))
+export const smoothStep = (t) => t*t*(3-2*t)
+export const map = (v,inMin,inMax,outMin,outMax) => outMin+((v-inMin)*(outMax-outMin))/(inMax-inMin)
+export const spring = (c,t,vel,s=0.15,d=0.8) => { const f=(t-c)*s; const nv=(vel+f)*d; return {value:c+nv,velocity:nv} }
+</pre></div></div><div class="footer">MAGCORE-LAB • BUILT WITH TACTICAL PRECISION • V07 © 2025</div></body></html>
