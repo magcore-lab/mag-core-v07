@@ -1,3 +1,19 @@
-<!doctype html><html lang=fr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>MAG CORE V07</title><style>body{background:#000;color:#fff;font-family:system-ui;text-align:center;margin:0;padding:60px 20px}h1{font-size:48px;font-weight:900;line-height:.9}h1 span{color:#FF1A1A}.btn{padding:12px 24px;border-radius:999px;font-weight:800;text-decoration:none;margin:8px;display:inline-block}.w{background:#fff;color:#000}.r{background:#FF1A1A;color:#fff}pre{background:#0a0a0a;border:1px solid #222;padding:16px;border-radius:12px;text-align:left;max-width:700px;margin:30px auto;overflow:auto;font-size:12px}</style></head><body><h1>Le coeur tactique<br><span>de vos systemes</span></h1><p style="color:#888">MAG CORE - AI, music, cinematic, intelligent systems</p><a class="btn w" href="https://github.com/magcore-lab/mag-core-v07">GitHub</a><a class="btn r" href="#code">Core</a><pre id="code">export const lerp=(a,b,t)=>a+(b-a)*t
-export const damp=(c,t,l=0.08)=>lerp(c,t,1-Math.exp(-l))
-export const edgeInterpolate=(f,to,t)=>f+(to-f)*(1-Math.pow(2,-10*t))</pre></body></html>
+// MAG CORE - Interpolation Tactique • MIT • v07
+export const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+
+export const damp = (current: number, target: number, lambda = 0.08, dt = 1) =>
+  lerp(current, target, 1 - Math.exp(-lambda * dt))
+
+export const edgeInterpolate = (from: number, to: number, t: number) =>
+  from + (to - from) * (1 - Math.pow(2, -10 * t))
+
+export const smoothStep = (t: number) => t * t * (3 - 2 * t)
+
+export const map = (v: number, inMin: number, inMax: number, outMin: number, outMax: number) =>
+  outMin + ((v - inMin) * (outMax - outMin)) / (inMax - inMin)
+
+export const spring = (current: number, target: number, vel: number, stiffness = 0.15, damping = 0.8) => {
+  const f = (target - current) * stiffness
+  const newVel = (vel + f) * damping
+  return { value: current + newVel, velocity: newVel }
+}
