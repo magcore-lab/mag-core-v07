@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAG CORE V07 — DAMP DEMO</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#fff;font-family:system-ui;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+h1{font-size:11px;letter-spacing:3px;color:#555;margin-bottom:12px}
+.sub{font-size:13px;color:#777;margin-bottom:24px;text-align:center;max-width:600px}
+canvas{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:20px;cursor:crosshair;max-width:90vw}
+.bar{width:600px;max-width:90vw;height:4px;background:#111;margin-top:20px;border-radius:99px;overflow:hidden}
+#fill{height:100%;background:#FF1A1A;width:0%}
+.link{margin-top:24px;font-size:12px;color:#333}
+.link a{color:#666;text-decoration:none;border-bottom:1px solid #222}
+</style>
+</head>
+<body>
+<h1>MAG CORE V07 • DAMP LIVE DEMO</h1>
+<div class="sub">Bougez la souris → la balle suit avec <b style="color:#fff">damp()</b></div>
+<canvas id="c" width="600" height="320"></canvas>
+<div class="bar"><div id="fill"></div></div>
+<div class="link"><a href="/">← Retour à MAG CORE V07</a></div>
+<script>
+const lerp=(a,b,t)=>a+(b-a)*t;
+const damp=(c,t,l=0.08,dt=1)=>lerp(c,t,1-Math.exp(-l*dt));
+let x=0,tx=300,y=160,ty=160;
+const c=document.getElementById('c'),ctx=c.getContext('2d'),fill=document.getElementById('fill');
+function onMove(e){const r=c.getBoundingClientRect();const cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;const cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top;tx=cx/r.width*600;ty=cy/r.height*320;}
+c.addEventListener('mousemove',onMove);c.addEventListener('touchmove',onMove,{passive:true});
+function loop(){x=damp(x,tx,0.14);y=damp(y,ty,0.14);ctx.clearRect(0,0,600,320);ctx.strokeStyle='#111';for(let i=0;i<600;i+=40){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,320);ctx.stroke()}for(let j=0;j<320;j+=40){ctx.beginPath();ctx.moveTo(0,j);ctx.lineTo(600,j);ctx.stroke()}ctx.beginPath();ctx.arc(x,y,22,0,Math.PI*2);ctx.fillStyle='#FF1A1A';ctx.shadowColor='#FF1A1A';ctx.shadowBlur=25;ctx.fill();ctx.shadowBlur=0;fill.style.width=Math.min(100,Math.abs(tx-x)/3)+'%';requestAnimationFrame(loop);}loop();
+</script>
+</body>
+</html>
