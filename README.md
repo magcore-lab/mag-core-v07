@@ -1,26 +1,20 @@
-{
-  "name": "mag-core-v07",
-  "version": "0.7.0",
-  "description": "Le coeur tactique de vos systemes - AI, music, cinematic, intelligent systems.",
-  "main": "core/interpolate.ts",
-  "type": "module",
-  "license": "MIT",
-  "author": "magcore-lab",
-  "homepage": "https://mag-core-v07.vercel.app",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/magcore-lab/mag-core-v07"
-  },
-  "keywords": [
-    "interpolation",
-    "lerp",
-    "damp",
-    "spring",
-    "ai",
-    "music",
-    "cinematic",
-    "mag-core",
-    "tactical"
-  ],
-  "files": ["core", "README.md"]
-}
+# MAG CORE V07 — Le coeur tactique de vos systèmes
+
+> AI, music, cinematic, intelligent systems. Un moteur d'interpolation qui fait bouger vos mondes comme un film.
+
+**LIVE:** https://mag-core-v07.vercel.app
+**License:** MIT • **Author:** magcore-lab
+
+---
+
+## ⚡ Core Engine
+
+```ts
+import { lerp, damp, edgeInterpolate, smoothStep, spring, map } from './core/interpolate'
+
+const smooth = damp(current, target, 0.08)
+const beat = edgeInterpolate(0, 1, t)
+
+let vel = 0
+const { value, velocity } = spring(pos, target, vel)
+vel = velocity
