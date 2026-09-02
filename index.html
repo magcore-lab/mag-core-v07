@@ -1,1 +1,19 @@
-<!doctype html><html lang=fr><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="Ey-30t14KVrfah4s5igVBx4WccjUmNcKRCSY3TW7WIQ" /><title>MAG CORE V07</title></head><body><div id="root"></div><div class="footer">MAGCORE-LAB • BUILT WITH MAG CORE</div><script>const lerp=(a,b,t)=>a+(b-a)*t;const damp=(c,t,l=0.08,dt=1)=>lerp(c,t,1-Math.exp(-l*dt));const edgeInterpolate=(f,to,t)=>f+(to-f)*(1-Math.pow(1-t,3));const smoothStep=(t)=>t*t*(3-2*t);const map=(v,inMin,inMax,outMin,outMax)=>outMin+((v-inMin)*(outMax-outMin))/(inMax-inMin);const spring=(c,t,vel,s=0.15,d=0.8)=>{const f=(t-c)*s;vel=(vel+f)*d;return{value:c+vel,velocity:vel}};</script></body></html>
+<!doctype html><html lang=fr><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="Ey-30t14KVrfah4s5igVBx4WccjUmNcKRCSY3TW7WIQ" /><title>MAG CORE V08</title><style>body{margin:0;background:#000;color:#fff;font-family:monospace;display:grid;place-items:center;height:100vh}.footer{position:fixed;bottom:10px;font-size:10px;opacity:.5;letter-spacing:2px}</style></head><body><div id="root">MAG CORE V08 • ACTIVE</div><div class="footer">MAGCORE-LAB • BUILT WITH MAG CORE V08</div><script>
+// MAG CORE V08 - MOTEUR PHYSIQUE
+const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const damp=(c,t,l=0.08,dt=1)=>lerp(c,t,1-Math.exp(-l*dt));
+const edgeInterpolate=(f,to,t)=>f+(to-f)*(1-Math.pow(1-t,3));
+const smoothStep=(t)=>t*t*(3-2*t);
+const map=(v,inMin,inMax,outMin,outMax)=>outMin+((v-inMin)*(outMax-outMin))/(inMax-inMin);
+// SPRING V08 avec Masse - physique réelle
+const spring=(current,target,velocity,{stiffness=0.15,damping=0.8,mass=1}={})=>{
+  const force=(target-current)*stiffness;
+  const acceleration=force/mass;
+  velocity=(velocity+acceleration)*damping;
+  return{value:current+velocity,velocity:clamp(velocity,-100,100)};
+};
+// Test live
+let c=0,t=100,v=0;
+setInterval(()=>{const s=spring(c,t,v,{stiffness:0.08,damping:0.85,mass:1.2});c=s.value;v=s.velocity;document.getElementById('root').innerText=`MAG CORE V08 • ${c.toFixed(2)}`;if(Math.abs(t-c)<0.1)t=t===100?0:100},16);
+</script></body></html>
