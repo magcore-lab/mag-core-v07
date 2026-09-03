@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { --bg:#050508; }
+html,body{ background:var(--bg); }
+.core-420 { width: min(420px, 78vw); height: min(420px, 78vw); }
+@media (min-width: 768px) {.core-420 { width: 420px; height: 420px; } }
+.tron-ring { width: min(640px, 92vw); height: min(640px, 92vw); }
+@media (min-width: 768px) {.tron-ring { width: 640px; height: 640px; } }
