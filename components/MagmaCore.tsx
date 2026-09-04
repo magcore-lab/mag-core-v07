@@ -1,18 +1,29 @@
-'use client'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
-export default function MagmaCore(){
-  const { scrollY } = useScroll()
-  const y = useSpring(useTransform(scrollY, [0,400], [0, -40]), { stiffness:80, damping:20 })
-  const scale = useSpring(useTransform(scrollY, [0,600], [1, 0.92]), { stiffness:120, damping:18 })
+"use client";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+export default function MagmaCore() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
-    <div className="relative flex items-center justify-center">
-      <motion.div style={{ y, scale }} className="tron-ring absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full" animate={{ rotate: 360 }} transition={{ duration:30, repeat:Infinity, ease:'linear' }}>
-        <div className="absolute inset-0 rounded-full border border-[#C9A86A]/10" />
-        <div className="absolute inset-0">{Array.from({length:32}).map((_,i)=>(<div key={i} className="absolute left-1/2 top-0 w-px h-[6px] bg-[#C9A86A]/20 origin-bottom" style={{ transform:`translateX(-50%) rotate(${i*11.25}deg)`}} />))}</div>
+    <div className="min-h-screen bg-[#050508] flex flex-col items-center justify-center p-4">
+      <motion.div
+        className="w-[min(420px,78vw)] h-[min(420px,78vw)] rounded-[32px] bg-gradient-to-br from-red-600 via-orange-600 to-red-900 shadow-[0_0_80px_rgba(220,38,0.6)] flex items-center justify-center"
+        animate={{ scale: [1, 1.05, 1], rotate: [0, 1, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <span className="text-white font-black text-3xl tracking-widest">MAG CORE</span>
       </motion.div>
-      <motion.div style={{ y, scale }} className="core-420 relative rounded-full z-10" initial={{ scale:0.92, opacity:0 }} animate={{ scale:1, opacity:1 }} transition={{ type:'spring', stiffness:90, damping:16 }}>
-        <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle at 35% 30%, #FFD9A0 0%, #FF7A2A 18%, #7A1A07 42%, #0D0404 70%)', boxShadow: '0 0 30px rgba(255,122,42,0.22)' }} />
-      </motion.div>
+      <motion.button
+        className="mt-10 px-8 py-4 bg-red-600 text-white rounded-full font-bold tracking-wider"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        ENTER THE MULTIVERSE
+      </motion.button>
+      <p className="mt-4 text-white/40 text-xs">Core 420px locked • FX 50M • Ready</p>
     </div>
-  )
+  );
 }
