@@ -7,7 +7,7 @@ export default function Page() {
       {/* Perfect centered living core - NO BLACK FRAME */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 animate-[breathe_4s_ease-in-out_infinite]">
         <img
-             src="/magma_core_realistic_transparent.png"
+          src="/magma_core_realistic_transparent.png"
           alt="MAG CORE V07 Living Core"
           className="w-[min(70vw,640px)] h-auto object-contain select-none"
           style={{
