@@ -9,7 +9,7 @@ export async function GET() {
       did: "did:web:mag-core-v07.vercel.app",
       name: "MAG CORE v07",
       tagline: "ENTER THE MULTIVERSE",
-      definition: "Couche de coordination protocolisée entre intelligences, capacités et systèmes créatifs"
+      definition: "Couche de coordination protocolisee entre intelligences, capacites et systemes creatifs"
     },
     node: {
       id: "mag-core-root-v07",
@@ -25,7 +25,6 @@ export async function GET() {
     ],
     evidence: { c2pa: true, vc_attestation: true },
     settlement: { rails: ["FIAT","GPU","CIN"], treasury_fee: 0.05 },
-    verification: { crl: "https://mag-core-v07.vercel.app/crl/list" },
     links: { spec: "https://mag-core-v07.vercel.app/cfs" }
   }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" } });
-}z   
+}
