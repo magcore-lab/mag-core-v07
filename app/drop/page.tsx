@@ -1,19 +1,21 @@
-export default function Drop(){
- return(
-  <main className="min-h-screen bg-black text-white flex flex-col">
-   <div className="border-b border-white/10 px-6 py-4 flex justify-between text-[11px] tracking-[0.3em] text-neutral-500">
-    <a href="/multiverse">← CORE</a><span className="text-red-500/60">DROP_V07 // LOCKED</span>
-   </div>
-   <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-    <p className="text-[11px] tracking-[0.4em] text-red-500">NEXT RELEASE</p>
-    <h1 className="text-7xl md:text-8xl font-black mt-6">DROP<span className="text-red-500">03</span></h1>
-    <div className="mt-12 rounded-[32px] bg-[#1a1a1a] border border-white/10 px-10 py-12">
-      <p className="text-5xl md:text-6xl font-mono tracking-wider">00:14:22:08</p>
-      <p className="mt-4 text-[10px] tracking-[0.3em] text-neutral-500">DAYS : HOURS : MIN : SEC</p>
-    </div>
-    <button className="mt-12 bg-white text-black rounded-full px-10 py-4 text-[11px] font-bold tracking-widest">JOIN VAULT →</button>
-    <p className="mt-6 text-[10px] text-neutral-600 tracking-widest">WHITELIST ONLY // 47 SPOTS LEFT</p>
-   </div>
-  </main>
- )
+export default function DropPage() {
+  return (
+    <main style={{minHeight:'100vh', background:'#000', color:'#fff', fontFamily:'monospace', display:'flex', alignItems:'center', justifyContent:'center', padding:'24px'}}>
+      <div style={{maxWidth:'500px', width:'100%', textAlign:'center', border:'1px solid #FF003333', background:'#110000', padding:'40px 24px'}}>
+        <div style={{width:'60px', height:'60px', margin:'0 auto 24px auto', borderRadius:'50%', background:'radial-gradient(circle, #FF3300, #000)', boxShadow:'0 0 40px #FF0033AA'}} />
+        <h1 style={{fontSize:'42px', fontWeight:'900', margin:0}}>DROP</h1>
+        <p style={{letterSpacing:'4px', fontSize:'10px', opacity:0.5, marginTop:'8px'}}>MAG CORE V07 - ACCESS GATE</p>
+        <div style={{marginTop:'32px', border:'1px solid #222', background:'#000', padding:'16px', fontSize:'11px', textAlign:'left', lineHeight:'1.8'}}>
+          <p>> checking allowlist... standby</p>
+          <p>> quota - DEPASSE 05/09</p>
+          <p>> next window: <span style={{color:'#FFD700'}}>06/09 12:10 EU PARIS</span></p>
+          <p style={{marginTop:'12px', color:'#7CFF9C'}}>> system ready for V08</p>
+        </div>
+        <div style={{marginTop:'24px', display:'flex', gap:'12px', justifyContent:'center'}}>
+          <a href="/projects" style={{border:'1px solid #222', padding:'10px 16px', color:'#fff', textDecoration:'none', fontSize:'11px'}}>ARCHIVE</a>
+          <a href="/multiverse" style={{background:'#FF0033', padding:'10px 16px', color:'#fff', textDecoration:'none', fontSize:'11px'}}>ENTER</a>
+        </div>
+      </div>
+    </main>
+  );
 }
