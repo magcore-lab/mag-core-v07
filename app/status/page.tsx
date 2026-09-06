@@ -1,54 +1,53 @@
-export default function StatusPage(){
- return (
-  <main className="min-h-screen bg-[#0A0A0B] text-[#EDEDED] font-mono px-6 py-16">
-   <div className="max-w-3xl mx-auto">
-    <div className="flex items-center gap-2 mb-2">
-     <div className="w-2 h-2 bg-[#7CFF9C] rounded-full animate-pulse" />
-     <span className="text-[#7CFF9C] text-xs tracking-widest">OPERATIONAL</span>
-    </div>
-    <h1 className="text-4xl font-bold mb-2">MAG CORE // STATUS</h1>
-    <p className="text-sm opacity-60 mb-10">L3_SOVEREIGN ROOT — mag-core-v07.vercel.app — 7cb5cfd</p>
+// app/status/page.tsx - MAG CORE V07 STATUS OS
+export default function StatusPage() {
+  const cores = [
+    { path: "/", name: "HOME", status: "OPERATIONAL", code: 200, seo: "INDEXÉE" },
+    { path: "/multiverse", name: "MULTIVERSE", status: "DETECTÉ", code: 200, seo: "EN ATTENTE QUOTA" },
+    { path: "/lab", name: "LAB", status: "DETECTÉ", code: 200, seo: "EN ATTENTE QUOTA" },
+    { path: "/projects", name: "PROJECTS", status: "DETECTÉ", code: 200, seo: "EN ATTENTE QUOTA" },
+    { path: "/drop", name: "DROP", status: "DETECTÉ", code: 200, seo: "EN ATTENTE QUOTA" },
+    { path: "/status", name: "STATUS", status: "OPERATIONAL", code: 200, seo: "LIVE" },
+  ];
 
-    <div className="border border-[#7CFF9C]/20 p-5 mb-6 bg-[#7CFF9C]/[0.03]">
-     <div className="flex justify-between items-center">
-      <span className="text-sm">mag-core-root-v07</span>
-      <span className="text-xs px-2 py-1 bg-[#7CFF9C] text-black">L3 SOVEREIGN — LIVE</span>
-     </div>
-     <div className="mt-3 text-[11px] opacity-60 grid grid-cols-2 gap-2">
-      <span>Region: EU (Paris)</span><span>Uptime: 99.99%</span>
-      <span>Policy: retention 0</span><span>Latency p95: 42ms</span>
-     </div>
-    </div>
+  return (
+    <main className="min-h-screen bg-black text-white font-mono p-6 md:p-10">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-black mb-2">MAG CORE <span className="text-[#FF0033]">STATUS</span></h1>
+        <p className="text-xs opacity-50 mb-8">SYSTEM: mag-core-v07.vercel.app / TIMESTAMP: {new Date().toLocaleString()} / PARIS</p>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
-     <div className="border border-white/10 p-4">
-      <div className="text-xs opacity-60 mb-2">L1 COMPLIANT</div>
-      <div className="flex items-center gap-2"><div className="w-2 h-2 bg-green-400 rounded-full"/> <span className="text-xs">paris.node.01 — 68ms</span></div>
-     </div>
-     <div className="border border-[#7CFF9C]/30 p-4 bg-white/[0.02]">
-      <div className="text-xs text-[#7CFF9C] mb-2">L2 TRUSTED</div>
-      <div className="flex items-center gap-2"><div className="w-2 h-2 bg-[#7CFF9C] rounded-full animate-pulse"/> <span className="text-xs">seoul.dsp.enclave — 112ms</span></div>
-     </div>
-     <div className="border border-white/10 p-4">
-      <div className="text-xs opacity-60 mb-2">L3 SOVEREIGN</div>
-      <div className="flex items-center gap-2"><div className="w-2 h-2 bg-green-400 rounded-full"/> <span className="text-xs">mtl.calib.root — 24ms</span></div>
-     </div>
-    </div>
+        {/* SEO HEALTH */}
+        <div className="border border-white/10 bg-[#111] p-4 mb-8">
+          <h2 className="text-sm mb-4 opacity-70">● SEO CORE</h2>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div>robots.ts <span className="text-green-400 ml-2">● LIVE</span></div>
+            <div>sitemap.ts <span className="text-green-400 ml-2">● 6 URLs</span></div>
+            <div>Search Console <span className="text-green-400 ml-2">● SUCCÈS</span></div>
+            <div>Quota Indexation <span className="text-yellow-400 ml-2">● DÉPASSÉ 05/09 - RESET 06/09 12:10</span></div>
+          </div>
+        </div>
 
-    <div className="border border-white/10 p-5 mb-8">
-     <p className="text-xs text-[#7CFF9C] mb-3">VERIFICATION</p>
-     <div className="space-y-2 text-xs">
-      <div className="flex justify-between"><span className="opacity-60">C2PA Manifest</span><span className="text-[#7CFF9C]">✓ VALID</span></div>
-      <div className="flex justify-between"><span className="opacity-60">VC Attestation (TEE)</span><span className="text-[#7CFF9C]">✓ VALID</span></div>
-      <div className="flex justify-between"><span className="opacity-60">CRL / Revocation</span><span className="text-[#7CFF9C]">✓ 0 revoked</span></div>
-      <div className="flex justify-between"><span className="opacity-60">Settlement Rails</span><span className="opacity-80">FIAT / GPU / CIN — OK</span></div>
-     </div>
-    </div>
+        {/* CORES */}
+        <div className="space-y-2">
+          {cores.map(c => (
+            <div key={c.path} className="flex justify-between items-center border border-white/10 p-4 hover:border-[#FF0033]/50 bg-[#0A0A0A]">
+              <div>
+                <span className="text-xs opacity-40">{c.path}</span>
+                <p className="font-bold">{c.name}</p>
+              </div>
+              <div className="text-right text-xs">
+                <p className={c.status === 'OPERATIONAL'? 'text-green-400' : 'text-yellow-400'}>{c.status} [{c.code}]</p>
+                <p className="opacity-50">{c.seo}</p>
+              </div>
+            </div>
+          ))}
+        </div>
 
-    <div className="text-[10px] opacity-30 border-t border-white/10 pt-4">
-     CFS v0.2 COHERENT — Evidence Split: C2PA (asset) + VC (compute). Treasury: 5% — Reputation: active.
-    </div>
-   </div>
-  </main>
- );
+        <div className="mt-10 text-[10px] opacity-30 leading-relaxed">
+          <p>> app/ structure validated: cfs,.well-known, drop, lab, multiverse, projects, status/app/evidence</p>
+          <p>> Next action: Push content to /lab and /multiverse to trigger RE-INDEX → Green status</p>
+          <p>> Reminder active: Daily 12:11 - Indexation / Daily 12:15 - site: check</p>
+        </div>
+      </div>
+    </main>
+  );
 }
