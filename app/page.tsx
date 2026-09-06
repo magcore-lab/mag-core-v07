@@ -1,10 +1,17 @@
-export default function Page() {
+// app/page.tsx
+export default function Home() {
   return (
-    <main className="min-h-screen bg-black flex flex-col items-center justify-center relative">
-      <div className="absolute w-[900px] h-[900px] bg-orange-600/25 blur-[140px] rounded-full" />
-      <img src="/magma_core_realistic_transparent.png" alt="MAG CORE" className="w-[min(72vw,620px)] h-auto z-10" style={{filter:'drop-shadow(0 0 100px rgba(255,69,0,0.9))'}} />
-      <p className="mt-8 font-mono text-[10px] tracking-[0.4em] text-white/40 z-10">MAG CORE V07 — MULTIVERSE_OS // READY</p>
-      <a href="/multiverse" className="mt-6 px-8 py-3 bg-[#ff3b30] rounded-full text-white text-xs tracking-widest z-10">ENTER THE MULTIVERSE</a>
+    <main style={{minHeight:'100vh', background:'#000', color:'#fff', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'monospace'}}>
+      <div style={{textAlign:'center'}}>
+        <div style={{width:'80px', height:'80px', margin:'0 auto 20px', borderRadius:'50%', background:'radial-gradient(circle, #FF3300, #000)', boxShadow:'0 0 40px #FF3300'}} />
+        <h1>MAG CORE V07</h1>
+        <p style={{opacity:0.5, fontSize:'11px', marginTop:'8px'}}>MULTIVERSE_OS - LIVE</p>
+        <div style={{marginTop:'20px', display:'flex', gap:'12px', justifyContent:'center', fontSize:'11px'}}>
+          <a href="/projects" style={{color:'#fff'}}>PROJECTS</a>
+          <a href="/drop" style={{color:'#fff'}}>DROP</a>
+          <a href="/status" style={{color:'#fff'}}>STATUS</a>
+        </div>
+      </div>
     </main>
-  )
+  );
 }
