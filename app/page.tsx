@@ -1,2 +1,2 @@
 import Desktop from "./components/Desktop";
-export default function Page(){ return <Desktop /> }
+export default function Page(){return <Desktop/>}
