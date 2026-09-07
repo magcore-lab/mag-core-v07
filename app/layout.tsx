@@ -11,7 +11,7 @@ export const metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MAG CORE V07 - Multiverse OS",
+        alt: "MAG CORE V07",
       },
     ],
     type: "website",
@@ -21,3 +21,11 @@ export const metadata = {
     images: ["/og-image.png"],
   },
 };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
