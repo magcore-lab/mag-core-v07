@@ -1,67 +1,29 @@
-"use client";
-import { useState } from "react";
+'use client';
+import dynamic from 'next/dynamic';
+const CoreVR = dynamic(()=>import('./CoreVR'),{ssr:false});
 
-export default function Page() {
-  const [hover, setHover] = useState(false);
+export default function Page(){
+ return (
+  <main style={{width:'100vw',height:'100vh',background:'#000',position:'relative',overflow:'hidden'}}>
+   <CoreVR/>
+   
+   {/* REC rouge */}
+   <div style={{position:'absolute',top:24,right:28,display:'flex',gap:8,alignItems:'center',fontFamily:'JetBrains Mono',fontSize:12,color:'#ff0000',fontWeight:700}}>
+    <span style={{width:8,height:8,borderRadius:'50%',background:'#ff0000',boxShadow:'0 0 8px #ff0000',display:'inline-block',animation:'blink 1s infinite'}}></span>REC
+   </div>
 
-  return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-between py-10 px-6 overflow-hidden">
-      <div className="w-full flex justify-between text-[10px] tracking-[0.3em] opacity-60">
-        <span>LAB_SYSTEM // 01</span>
-        <span>MAG CORE LAB</span>
-      </div>
+   {/* Texte centre */}
+   <div style={{position:'absolute',bottom:72,left:'50%',transform:'translateX(-50%)',textAlign:'center',fontFamily:'JetBrains Mono',color:'#fff'}}>
+    <div style={{letterSpacing:'0.4em',fontSize:15,opacity:0.9,textShadow:'0 0 12px #00ffff'}}>NOYAU ENERGIE MAITRISE</div>
+    <div style={{fontSize:10,opacity:0.4,marginTop:10}}>sovereign pearl core stable — RED 70% — FOND NOIR CINEMA #000</div>
+   </div>
 
-      <div
-        className="relative w-[70vw] max-w-[520px] aspect-square mx-auto cursor-pointer my-10 flex items-center justify-center"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onTouchStart={() => setHover(!hover)}
-      >
-        {[...Array(7)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute inset-0 rounded-full border border-white/[0.12] transition-all duration-1000 ${
-              hover? "animate-[pulseWave_3s_ease-out_infinite]" : "opacity-0 scale-75"
-            }`}
-            style={{ animationDelay: `${i * 0.35}s` }}
-          />
-        ))}
+   {/* Telemetry */}
+   <div style={{position:'absolute',bottom:20,left:20,fontFamily:'JetBrains Mono',fontSize:9,color:'#fff',opacity:0.3}}>
+    MCE-CORE-007 v2.1 | 42°C RED REC | FLUX 100% | SHIELD 100% | VR READY
+   </div>
 
-        <div className="relative w-[58%] h-[58%]">
-          <img
-            src="/mag-core-engine-1k.webp"
-            alt="OFF"
-            className={`absolute inset-0 w-full h-full object-contain transition-all duration-[1200ms] ${hover? "opacity-0 scale-90 blur-[12px]" : "opacity-100 scale-100"}`}
-          />
-          <img
-            src="/core-on-white-pur.png"
-            alt="ON"
-            className={`absolute inset-0 w-full h-full object-contain transition-all duration-[1200ms] ${hover? "opacity-100 scale-100 drop-shadow-[0_0_120px_rgba(255,255,255,0.95)]" : "opacity-0 scale-90 blur-[20px]"}`}
-          />
-        </div>
-        <div className={`absolute inset-0 -z-10 blur-[90px] rounded-full scale-[1.8] transition-all duration-[1200ms] ${hover? "opacity-100 bg-white/[0.15]" : "opacity-0"}`} />
-      </div>
-
-      <div className="text-center space-y-3 z-10">
-        <h1 className="text-[18px] md:text-[22px] tracking-[0.4em] font-light leading-relaxed">
-          MAG CORE V08<br />FIELD_OS - EN DIRECT
-        </h1>
-        <p className="text-[10px] tracking-[0.25em] opacity-50 h-3">
-          {hover? "CORE ON • 7 ONDES • FIELD ACTIF" : "CORE OFF • FIELD EN VEILLE • TOUCH TO IGNITE"}
-        </p>
-      </div>
-
-      <div className="flex gap-6 text-[11px] tracking-widest opacity-60 mt-10">
-        <span>LAB 01</span><span>PROJECTS 02</span><span>DROP 03</span><span>STATUS</span>
-      </div>
-
-      <style jsx>{`
-        @keyframes pulseWave {
-          0% { transform: scale(0.75); opacity: 0; }
-          15% { opacity: 0.4; }
-          100% { transform: scale(2.2); opacity: 0; }
-        }
-      `}</style>
-    </main>
-  );
+   <style>{`@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}} html,body{background:#000000}`}</style>
+  </main>
+ )
 }
