@@ -1,7 +1,9 @@
+
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Window from "./Window";
+import Orb from "./Orb"; // ton Orb devient le MAG CORE
 
 type PanelId = "LAB" | "PROJECTS" | "DROP" | "STATUS" | null;
 
@@ -9,47 +11,56 @@ export default function Desktop() {
   const [active, setActive] = useState<PanelId>(null);
 
   return (
-    <div style={{background:'#000', height:'100svh', width:'100vw', overflow:'hidden', position:'relative', paddingBottom:'env(safe-area-inset-bottom)'}}>
+    <div style={{background:'#000', height:'100svh', width:'100vw', overflow:'hidden', position:'relative'}}>
       
+      {/* MAG CORE ENGINE - ton Orb fusionné */}
       <div style={{height:'100svh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
         <motion.div
           animate={{ scale: [1, 1.06, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          style={{width:132, height:132, borderRadius:'50%', background:'radial-gradient(circle at 35% 35%, #ff6a4a 0%, #ff2a10 22%, #a00000 68%, #4a0000 100%)', boxShadow:'0 0 80px rgba(255,32,0,0.6), 0 0 140px rgba(255,32,0,0.25)'}}
-        />
-        <div style={{position:'absolute', width:380, height:380, borderRadius:'50%', background:'radial-gradient(circle, rgba(255,40,0,0.22) 0%, transparent 70%)', filter:'blur(20px)', top:'50%', left:'50%', transform:'translate(-50%,-55%)'}} />
-        <h1 style={{color:'#fff', fontFamily:'monospace', fontSize:16, letterSpacing:'0.55em', fontWeight:400, marginTop:28, zIndex:2}}>MAG CORE V08</h1>
-        <p style={{color:'#555', fontFamily:'monospace', fontSize:10, letterSpacing:'0.3em', marginTop:10, zIndex:2}}>MULTIVERSE_OS — EN DIRECT</p>
+          style={{width:132, height:132, borderRadius:'50%', cursor:'pointer'}}
+          onClick={() => setActive(active ? null : "STATUS")}
+        >
+          <Orb />
+        </motion.div>
+
+        <h1 style={{color:'#fff', fontFamily:'monospace', fontSize:16, letterSpacing:'0.2em', marginTop:24}}>
+          MAG CORE ENGINE
+        </h1>
+        <p style={{color:'#555', fontFamily:'monospace', fontSize:10, letterSpacing:'0.3em', marginTop:8}}>
+          QUANTUM FUSION • V0.7 • NO WATERMARK • 1.5m VR
+        </p>
       </div>
 
       <AnimatePresence>
         {active === "LAB" && (
-          <Window key="LAB" id="LAB" title="LAB_SYSTEM // 01" onClose={setActive} zIndex={10}>
-            <strong>MAG CORE LAB</strong><br/><br/>Experimental creative environment.<br/>Systems, prototypes and new intelligence layers.
+          <Window key="LAB" id="LAB" title="LAB_SYSTEM // 01" onClose={()=>setActive(null)}>
+            <strong>MAG CORE LAB</strong><br/><br/>Experimental creative lab.<br/>3 écrans parallèles • #A51205 mastered • Tron FX complets
           </Window>
         )}
         {active === "PROJECTS" && (
-          <Window key="PROJECTS" id="PROJECTS" title="PROJECTS_SYSTEM // 02" onClose={setActive} zIndex={10}>
-            <strong>ACTIVE PROJECTS</strong><br/><br/>MAG CORE<br/>MAAGMAAT<br/>ATLAS<br/>MULTIVERSE_OS
+          <Window key="PROJECTS" id="PROJECTS" title="PROJECTS_SYSTEM // 02" onClose={()=>setActive(null)}>
+            <strong>ACTIVE PROJECTS</strong><br/><br/>MAG CORE<br/>MAAGM • VR 360° • SBS Stereo
           </Window>
         )}
         {active === "DROP" && (
-          <Window key="DROP" id="DROP" title="DROP_SYSTEM // 03" onClose={setActive} zIndex={10}>
-            <strong>DROP CHANNEL</strong><br/><br/>Incoming releases.<br/><br/>Music.<br/>Visuals.<br/>Transmissions.
+          <Window key="DROP" id="DROP" title="DROP_SYSTEM // 03" onClose={()=>setActive(null)}>
+            <strong>DROP CHANNEL</strong><br/><br/>Incoming releases.<br/>Equirect 4K • SBS Full • GitHub Pages ready
           </Window>
         )}
         {active === "STATUS" && (
-          <Window key="STATUS" id="STATUS" title="STATUS_SYSTEM // 04" onClose={setActive} zIndex={10}>
-            <strong>SYSTEM STATUS</strong><br/><br/>● LIVE<br/><br/>MULTIVERSE_OS operational.<br/>Build: {`eba16dd → V08.0`}
+          <Window key="STATUS" id="STATUS" title="STATUS_SYSTEM // 04" onClose={()=>setActive(null)}>
+            <strong>SYSTEM STATUS</strong><br/><br/>• LIVE<br/>• MULTI-CORE<br/>• 1.2m text readable • ±15° safe • 10% recul<br/>• No watermark
           </Window>
         )}
       </AnimatePresence>
 
-      <div style={{position:'fixed', bottom:'max(18px, env(safe-area-inset-bottom))', left:'50%', transform:'translateX(-50%)', display:'flex', gap:8, padding:8, background:'rgba(15,15,15,0.7)', backdropFilter:'blur(16px)', border:'1px solid rgba(255,255,255,0.07)', zIndex:20}}>
-        <button onClick={() => setActive(active === "LAB" ? null : "LAB")} style={{background:active==="LAB"?"rgba(255,255,255,0.06)":"none", border:'none', color:active==="LAB"?"#fff":"#777", fontFamily:'monospace', fontSize:10, letterSpacing:'0.15em', padding:'10px 14px', minHeight:44, cursor:'pointer'}}>LAB 01</button>
-        <button onClick={() => setActive(active === "PROJECTS" ? null : "PROJECTS")} style={{background:active==="PROJECTS"?"rgba(255,255,255,0.06)":"none", border:'none', color:active==="PROJECTS"?"#fff":"#777", fontFamily:'monospace', fontSize:10, letterSpacing:'0.15em', padding:'10px 14px', minHeight:44, cursor:'pointer'}}>PROJECTS 02</button>
-        <button onClick={() => setActive(active === "DROP" ? null : "DROP")} style={{background:active==="DROP"?"rgba(255,255,255,0.06)":"none", border:'none', color:active==="DROP"?"#fff":"#777", fontFamily:'monospace', fontSize:10, letterSpacing:'0.15em', padding:'10px 14px', minHeight:44, cursor:'pointer'}}>DROP 03</button>
-        <button onClick={() => setActive(active === "STATUS" ? null : "STATUS")} style={{background:active==="STATUS"?"rgba(255,255,255,0.06)":"none", border:'none', color:active==="STATUS"?"#fff":"#777", fontFamily:'monospace', fontSize:10, letterSpacing:'0.15em', padding:'10px 14px', minHeight:44, cursor:'pointer'}}>STATUS</button>
+      {/* Dock */}
+      <div style={{position:'fixed', bottom:'max(18px, env(safe-area-inset-bottom))', left:'50%', transform:'translateX(-50%)', display:'flex', gap:12, background:'rgba(0,0,0,0.8)', padding:'8px 16px', borderRadius:12, border:'1px solid rgba(255,255,255,0.1)'}}>
+        <button onClick={()=> setActive(active === "LAB" ? null : "LAB")} style={{color:'#fff', background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', padding:'6px 12px', borderRadius:8, fontFamily:'monospace', fontSize:10}}>LAB</button>
+        <button onClick={()=> setActive(active === "PROJECTS" ? null : "PROJECTS")} style={{color:'#fff', background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', padding:'6px 12px', borderRadius:8, fontFamily:'monospace', fontSize:10}}>PROJECTS</button>
+        <button onClick={()=> setActive(active === "DROP" ? null : "DROP")} style={{color:'#fff', background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', padding:'6px 12px', borderRadius:8, fontFamily:'monospace', fontSize:10}}>DROP</button>
+        <button onClick={()=> setActive(active === "STATUS" ? null : "STATUS")} style={{color:'#fff', background:'rgba(255,60,20,0.2)', border:'1px solid rgba(255,60,20,0.4)', padding:'6px 12px', borderRadius:8, fontFamily:'monospace', fontSize:10}}>STATUS</button>
       </div>
     </div>
   );
