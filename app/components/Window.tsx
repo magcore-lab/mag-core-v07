@@ -1,20 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-
-export default function Window({ id, title, children, onClose, zIndex }: any) {
+export default function Window({ id, title, onClose, children }: any) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 20, scale: 0.96 }}
-      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      style={{ zIndex, position: 'absolute', top: '18svh', left: '50%', x: '-50%', width: 'min(92vw, 560px)', background: 'rgba(10,10,10,0.82)', backdropFilter: 'blur(18px)', border: '1px solid rgba(255,255,255,0.08)' }}
-    >
-      <div style={{display:'flex', justifyContent:'space-between', padding:'10px 14px', borderBottom:'1px solid rgba(255,255,255,0.06)', fontFamily:'monospace', fontSize:10, letterSpacing:'0.2em', color:'#888'}}>
-        <span>{title}</span>
-        <button onClick={() => onClose(null)} style={{background:'none', border:'none', color:'#888', cursor:'pointer'}}>[ CLOSE ]</button>
+    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] max-w-[90vw] z-50">
+      <div className="border-2 border-white rounded-xl bg-[#0c1424]/90 backdrop-blur-xl shadow-[0_0_40px_rgba(80,150,255,0.2)] overflow-hidden">
+        <div className="flex justify-between items-center px-4 py-2 border-b border-white/20"><span className="font-mono text-[10px] text-white/70 tracking-widest">{title}</span><button onClick={onClose} className="w-6 h-6 rounded-full bg-white/10 text-white/50">✕</button></div>
+        <div className="p-6 font-mono text-sm text-white/90">{children}</div>
       </div>
-      <div style={{padding:'22px', color:'#d0d0d0', fontFamily:'monospace', fontSize:12, lineHeight:1.6}}>{children}</div>
     </motion.div>
   );
 }
