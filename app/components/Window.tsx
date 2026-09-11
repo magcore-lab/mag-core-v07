@@ -1,11 +1,23 @@
+
 "use client";
 import { motion } from "framer-motion";
-export default function Window({ id, title, onClose, children }: any) {
+
+export default function Window({ title, onClose, children }: any) {
   return (
-    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] max-w-[90vw] z-50">
-      <div className="border-2 border-white rounded-xl bg-[#0c1424]/90 backdrop-blur-xl shadow-[0_0_40px_rgba(80,150,255,0.2)] overflow-hidden">
-        <div className="flex justify-between items-center px-4 py-2 border-b border-white/20"><span className="font-mono text-[10px] text-white/70 tracking-widest">{title}</span><button onClick={onClose} className="w-6 h-6 rounded-full bg-white/10 text-white/50">✕</button></div>
-        <div className="p-6 font-mono text-sm text-white/90">{children}</div>
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] max-w-[92vw] z-50"
+      style={{ perspective: "1000px" }}
+    >
+      <div className="relative border-[2px] border-white rounded-[14px] bg-[#0a1628]/85 backdrop-blur-[22px] shadow-[0_0_50px_rgba(120,180,255,0.25),inset_0_0_0_1px_rgba(255,255,255,0.1)] overflow-hidden">
+        <div className="flex justify-between items-center px-5 py-2.5 border-b border-white/20 bg-white/[0.04]">
+          <span className="font-mono text-[10px] tracking-[0.18em] text-white/70 uppercase">{title}</span>
+          <button onClick={onClose} className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/15 border border-white/10 text-white/60 flex items-center justify-center text-[11px]">✕</button>
+        </div>
+        <div className="p-7 font-mono text-[13px] leading-relaxed text-white/85">{children}</div>
+        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#A51205]/50 to-transparent" />
       </div>
     </motion.div>
   );
