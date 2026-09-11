@@ -1,18 +1,15 @@
 
 "use client";
 import { motion } from "framer-motion";
-
 export default function Orb() {
   return (
     <div className="relative w-[400px] h-[400px] flex items-center justify-center">
-      {/* Glow externe maîtrisé */}
       <motion.div
         animate={{ scale: [1, 1.25, 1], opacity: [0.25, 0.12, 0.25] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="absolute w-44 h-44 rounded-full blur-[2px]"
         style={{ background: "radial-gradient(circle, #FF5514 0%, #A51205 40%, transparent 70%)" }}
       />
-      {/* Noyau principal #A51205 */}
       <motion.div
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -24,7 +21,6 @@ export default function Orb() {
       >
         <div className="absolute top-[22%] left-[28%] w-4 h-4 bg-white/80 rounded-full blur-[0.5px]" />
       </motion.div>
-      {/* Anneau orbital fin */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
