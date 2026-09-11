@@ -87,4 +87,4 @@ export default function Orb({ variant = "red" }: OrbProps) {
       />
     </div>
   );
-}
+}s
