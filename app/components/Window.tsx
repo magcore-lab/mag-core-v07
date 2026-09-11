@@ -1,21 +1,34 @@
-"use client";
-import { motion } from "framer-motion";
-export default function Window({ title, onClose, children }: any) {
+"use client"
+export default function Window({ title, children, onClose }: any) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] max-w-[92vw] z-50"
-    >
-      <div className="relative border-[2px] border-white rounded-[14px] bg-[#0a1628]/85 backdrop-blur-[22px] shadow-[0_0_50px_rgba(120,180,255,0.25),inset_0_0_0_1px_rgba(255,255,255,0.1)] overflow-hidden">
-        <div className="flex justify-between items-center px-5 py-2.5 border-b border-white/20 bg-white/[0.04]">
-          <span className="font-mono text-[10px] tracking-[0.18em] text-white/70 uppercase">{title}</span>
-          <button onClick={onClose} className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/15 border border-white/10 text-white/60 flex items-center justify-center text-[11px]">✕</button>
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 50,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
+    }} onClick={onClose}>
+      <div style={{
+        width: 'min(600px, 90vw)', maxHeight: '80vh',
+        background: '#0f172a', border: '2px solid white',
+        borderRadius: '16px', overflow: 'hidden',
+        boxShadow: '0 0 40px rgba(0,0,0,0.8)'
+      }} onClick={e => e.stopPropagation()}>
+        <div style={{
+          padding: '12px 16px', display: 'flex',
+          justifyContent: 'space-between', alignItems: 'center',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
+          fontSize: '12px', letterSpacing: '2px', color: 'rgba(255,255,255,0.6)'
+        }}>
+          <span>{title}</span>
+          <button onClick={onClose} style={{
+            width: '28px', height: '28px', borderRadius: '50%',
+            border: '1px solid white', background: 'transparent',
+            color: 'white', cursor: 'pointer'
+          }}>✕</button>
         </div>
-        <div className="p-7 font-mono text-[13px] leading-relaxed text-white/85">{children}</div>
-        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#A51205]/50 to-transparent" />
+        <div style={{ padding: '24px', color: 'white' }}>
+          {children}
+        </div>
       </div>
-    </motion.div>
-  );
+    </div>
+  )
 }
