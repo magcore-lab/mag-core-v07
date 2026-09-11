@@ -1,37 +1,90 @@
+"use client";
 
-"use client"
-export default function Orb({ variant = "red" }: { variant?: "red" | "blue" }) {
-  const isBlue = variant === "blue"
+type OrbProps = {
+  variant?: "red" | "blue";
+};
+
+export default function Orb({ variant = "red" }: OrbProps) {
+  const isBlue = variant === "blue";
+
   return (
     <div style={{ position: "relative", width: 140, height: 140 }}>
-      {/* glow maîtrisé */}
-      <div style={{
-        position: "absolute", inset: 0, borderRadius: "50%",
-        background: isBlue ? "#00D4FF" : "#A51205",
-        filter: "blur(28px)", opacity: 0.22
-      }} />
-      {/* orb core petit */}
-      <div style={{
-        position: "relative", width: "100%", height: "100%", borderRadius: "50%",
-        background: isBlue
-          ? "radial-gradient(at 30% 30%, #7DDFFF, #00A8CC 35%, #083A4A 80%)"
-          : "radial-gradient(at 30% 30%, #FF8A7A, #A51205 42%, #4A0802 82%)",
-        boxShadow: "inset 0 0 18px rgba(255,255,255,0.5), 0 0 0 1px rgba(255,255,255,0.12)",
-      }}>
-        <div style={{
-          position: "absolute", top: "18%", left: "22%", width: "28%", height: "28%",
-          background: "radial-gradient(white, transparent 70%)", opacity: 0.65, borderRadius: "50%"
-        }} />
+      {/* Glow maîtrisé - pas agressif */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: "50%",
+          background: isBlue ? "#00D4FF" : "#A51205",
+          filter: "blur(28px)",
+          opacity: 0.2,
+        }}
+      />
+
+      {/* Core orb - 140px petit VR 1.5m */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          borderRadius: "50%",
+          background: isBlue
+            ? "radial-gradient(at 32% 28%, #7DDFFF 0%, #00A8CC 28%, #0A4A5A 68%, #041E26 100%)"
+            : "radial-gradient(at 32% 28%, #C41E0F 0%, #A51205 38%, #7A0E04 62%, #3A0702 92%)",
+          boxShadow:
+            "inset 0 0 18px rgba(255,255,255,0.45), inset 0 0 0 1px rgba(255,255,255,0.08)",
+        }}
+      >
+        {/* Highlight blanc premium */}
+        <div
+          style={{
+            position: "absolute",
+            top: "20%",
+            left: "24%",
+            width: "28%",
+            height: "28%",
+            background: "radial-gradient(white, rgba(255,255,255,0) 72%)",
+            opacity: 0.7,
+            borderRadius: "50%",
+            filter: "blur(0.5px)",
+          }}
+        />
       </div>
-      {/* grain subtil sans SVG qui plante le build */}
-      <div style={{
-        position: "absolute", inset: -8, borderRadius: "50%", opacity: 0.04,
-        background: "repeating-linear-gradient(0deg, white 0px, transparent 1px, transparent 2px)"
-      }} />
-      <div style={{
-        position: "absolute", inset: -14, borderRadius: "50%",
-        border: "1px solid rgba(255,255,255,0.07)"
-      }} />
+
+      {/* Grain cinéma subtil - CSS safe, pas de SVG qui fait fail le build */}
+      <div
+        style={{
+          position: "absolute",
+          inset: -6,
+          borderRadius: "50%",
+          opacity: 0.035,
+          background:
+            "repeating-linear-gradient(0deg, rgba(255,255,255,0.8) 0px, transparent 1px, transparent 2px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Anneau fin premium */}
+      <div
+        style={{
+          position: "absolute",
+          inset: -14,
+          borderRadius: "50%",
+          border: "1px solid rgba(255,255,255,0.07)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Anneau externe très léger */}
+      <div
+        style={{
+          position: "absolute",
+          inset: -28,
+          borderRadius: "50%",
+          border: "1px solid rgba(255,255,255,0.03)",
+          pointerEvents: "none",
+        }}
+      />
     </div>
-  )
+  );
 }
