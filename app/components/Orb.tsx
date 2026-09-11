@@ -9,7 +9,6 @@ export default function Orb({ variant = "red" }: OrbProps) {
 
   return (
     <div style={{ position: "relative", width: 140, height: 140 }}>
-      {/* Glow maîtrisé - pas agressif */}
       <div
         style={{
           position: "absolute",
@@ -20,8 +19,6 @@ export default function Orb({ variant = "red" }: OrbProps) {
           opacity: 0.2,
         }}
       />
-
-      {/* Core orb - 140px petit VR 1.5m */}
       <div
         style={{
           position: "relative",
@@ -35,7 +32,6 @@ export default function Orb({ variant = "red" }: OrbProps) {
             "inset 0 0 18px rgba(255,255,255,0.45), inset 0 0 0 1px rgba(255,255,255,0.08)",
         }}
       >
-        {/* Highlight blanc premium */}
         <div
           style={{
             position: "absolute",
@@ -50,8 +46,6 @@ export default function Orb({ variant = "red" }: OrbProps) {
           }}
         />
       </div>
-
-      {/* Grain cinéma subtil - CSS safe, pas de SVG qui fait fail le build */}
       <div
         style={{
           position: "absolute",
@@ -63,8 +57,6 @@ export default function Orb({ variant = "red" }: OrbProps) {
           pointerEvents: "none",
         }}
       />
-
-      {/* Anneau fin premium */}
       <div
         style={{
           position: "absolute",
@@ -74,8 +66,6 @@ export default function Orb({ variant = "red" }: OrbProps) {
           pointerEvents: "none",
         }}
       />
-
-      {/* Anneau externe très léger */}
       <div
         style={{
           position: "absolute",
@@ -87,4 +77,4 @@ export default function Orb({ variant = "red" }: OrbProps) {
       />
     </div>
   );
-}s
+}
